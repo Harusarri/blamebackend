@@ -37,9 +37,7 @@ app.post('/api/click', (req, res) => {
         clickData[username] = { ip, clicks: 0 };
     }
 
-    clickData[username].clicks += 1; // Always increase by 1 to avoid duplicates
-
-    console.log(`Updated clicks for ${username}: ${clickData[username].clicks}`);
+    clickData[username].clicks += 1;
 
     fs.writeFileSync(clickDataFile, JSON.stringify(clickData, null, 2));
     res.json({ success: true });
