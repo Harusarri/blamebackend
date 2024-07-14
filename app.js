@@ -23,7 +23,7 @@ if (!fs.existsSync(clickDataFile)) {
 
 // 클릭 횟수 기록 API
 app.post('/api/click', (req, res) => {
-    const { ip, clicks, username } = req.body;
+    const { ip, clicks } = req.body;
 
     if (!ip || !clicks) {
         return res.status(400).json({ error: 'Invalid request. IP and clicks are required.' });
@@ -36,11 +36,7 @@ app.post('/api/click', (req, res) => {
     if (!clickData[ip]) {
         clickData[ip] = { clicks: 0, username: '' };
     }
-    clickData[ip].clicks += clicks;
-
-    if (username) {
-        clickData[ip].username = username;
-    }
+    clickData[ip].clicks += 1; // 매번 1씩 증가
 
     // 클릭 데이터 파일에 저장
     fs.writeFileSync(clickDataFile, JSON.stringify(clickData, null, 2));
