@@ -39,6 +39,8 @@ app.post('/api/click', (req, res) => {
 
     clickData[username].clicks += 1; // 항상 1씩 증가하도록 수정
 
+    console.log(`Updated clicks for ${username}: ${clickData[username].clicks}`);
+
     fs.writeFileSync(clickDataFile, JSON.stringify(clickData, null, 2));
     res.json({ success: true });
 });
@@ -48,7 +50,7 @@ app.get('/api/leaderboard', (req, res) => {
     res.json(clickData);
 });
 
-app.post('/api/changeNickname', async (req, res) => {
+app.post('/api/changeNickname', (req, res) => {
     const { oldIp, newNickname } = req.body;
     if (!oldIp || !newNickname) {
         return res.status(400).json({ error: 'Both old IP and new nickname are required' });
