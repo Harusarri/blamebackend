@@ -37,7 +37,7 @@ app.post('/api/click', (req, res) => {
         clickData[username] = { ip, clicks: 0 };
     }
 
-    clickData[username].clicks += 1; // 항상 1씩 증가하도록 수정
+    clickData[username].clicks += 1; // Always increase by 1 to avoid duplicates
 
     console.log(`Updated clicks for ${username}: ${clickData[username].clicks}`);
 
